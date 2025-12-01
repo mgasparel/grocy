@@ -144,6 +144,13 @@
 							</th>
 							<th data-shadow-rowgroup-column="8"
 								class="@if(!GROCY_FEATURE_FLAG_STOCK) d-none @endif allow-grouping">{{ $__t('Requirements fulfilled') }}</th>
+							<th>
+								{{ $__t('Cost per serving') }}
+								<i class="fa-solid fa-question-circle text-muted small"
+									data-toggle="tooltip"
+									data-trigger="hover click"
+									title="{{ $__t('Based on the prices of the default consume rule (Opened first, then first due first, then first in first out) for in stock ingredients and on the last price for missing ones') }}"></i>
+							</th>
 							<th class="d-none">Hidden status for sorting of "Requirements fulfilled" column</th>
 							<th class="d-none">Hidden status for filtering by status</th>
 							<th class="d-none">Hidden recipe ingredient product names</th>
@@ -221,6 +228,15 @@
 							<td class="@if(!GROCY_FEATURE_FLAG_STOCK) d-none @endif">
 								@if(FindObjectInArrayByPropertyValue($recipesResolved, 'recipe_id', $recipe->id)->need_fulfilled == 1)<i class="fa-solid fa-check text-success"></i>@elseif(FindObjectInArrayByPropertyValue($recipesResolved, 'recipe_id', $recipe->id)->need_fulfilled_with_shopping_list == 1)<i class="fa-solid fa-exclamation text-warning"></i>@else<i class="fa-solid fa-times text-danger"></i>@endif
 								<span class="timeago-contextual">@if(FindObjectInArrayByPropertyValue($recipesResolved, 'recipe_id', $recipe->id)->need_fulfilled == 1){{ $__t('Enough in stock') }}@elseif(FindObjectInArrayByPropertyValue($recipesResolved, 'recipe_id', $recipe->id)->need_fulfilled_with_shopping_list == 1){{ $__n(FindObjectInArrayByPropertyValue($recipesResolved, 'recipe_id', $recipe->id)->missing_products_count, 'Not enough in stock, %s ingredient missing but already on the shopping list', 'Not enough in stock, %s ingredients missing but already on the shopping list') }}@else{{ $__n(FindObjectInArrayByPropertyValue($recipesResolved, 'recipe_id', $recipe->id)->missing_products_count, 'Not enough in stock, %s ingredient missing', 'Not enough in stock, %s ingredients missing') }}@endif</span>
+							</td>
+							<td>
+								<span class="locale-number locale-number-currency">{{ FindObjectInArrayByPropertyValue($recipesResolved, 'recipe_id', $recipe->id)->costs_per_serving }}</span>
+								@if(FindObjectInArrayByPropertyValue($recipesResolved, 'recipe_id', $recipe->id)->prices_incomplete)
+								<i class="small fa-solid fa-exclamation text-danger"
+									data-toggle="tooltip"
+									data-trigger="hover click"
+									title="{{ $__t('No price information is available for at least one ingredient') }}"></i>
+								@endif
 							</td>
 							<td class="d-none">
 								{{ FindObjectInArrayByPropertyValue($recipesResolved, 'recipe_id', $recipe->id)->missing_products_count }}

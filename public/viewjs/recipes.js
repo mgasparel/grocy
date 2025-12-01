@@ -5,7 +5,8 @@
 		{ 'searchable': false, "targets": 0 },
 		{ 'visible': false, 'targets': 2 },
 		{ "type": "html-num-fmt", "targets": 2 },
-		{ "type": "html-num-fmt", "targets": 3 }
+		{ "type": "html-num-fmt", "targets": 3 },
+		{ 'visible': false, 'targets': 5 }
 	].concat($.fn.dataTable.defaults.columnDefs),
 	select: {
 		style: 'single',
