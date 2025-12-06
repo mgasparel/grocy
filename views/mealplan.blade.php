@@ -62,6 +62,26 @@
 			width: 200px !important;
 		}
 	}
+
+	/* Drag-and-drop visual feedback */
+	.fc-h-event {
+		cursor: move;
+		transition: opacity 0.2s ease;
+	}
+
+	.fc-event-dragging {
+		opacity: 0.6;
+		z-index: 9999 !important;
+	}
+
+	.fc-day-header:hover {
+		background-color: rgba(0, 123, 255, 0.05);
+	}
+
+	.mealplan-drop-target {
+		background-color: rgba(0, 123, 255, 0.1);
+		border: 2px dashed #007bff !important;
+	}
 </style>
 @endpush
 
