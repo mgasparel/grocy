@@ -1,0 +1,18 @@
+services:
+  grocy:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: grocy
+    environment:
+      - TZ=Etc/UTC
+      - GROCY_DATAPATH=/config/data
+    volumes:
+      - ..:/app/www
+      - grocy-config:/config
+    ports:
+      - "9283:80"
+    restart: unless-stopped
+
+volumes:
+  grocy-config:
